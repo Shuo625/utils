@@ -4,8 +4,9 @@
 
 THEME_DIR=$HOME/.themes
 WALLPAPERS_DIR=$HOME/Pictures/wallpapers
+PROJECTS_DIR=$HOME/Projects
 
-WORK_DIR=$HOME/work/lib/WhiteSur-gtk-theme
+WORK_DIR=${PROJECTS_DIR}/lib/WhiteSur-gtk-theme
 COMMAND_INSTALL=${WORK_DIR}/install.sh
 COMMAND_TWEAK=${WORK_DIR}/tweaks.sh
 
