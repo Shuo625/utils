@@ -23,24 +23,29 @@ function update_repo() {
 
     echo "Install new themes."
     bash ${COMMAND_INSTALL} \
-        -c dark -c light \
         -t green \
         -s 280 \
-        -i ubuntu
+        -i ubuntu \
+        -P smaller \
+        -b $WALLPAPERS_DIR/$1.jpg \
+        -N glassy \
+        --darker \
+        --nord
 }
 
 
 function install_theme() {
     echo "Install $1 theme."
 
-    update_repo
+    update_repo $1
 
-    gsettings set org.gnome.desktop.interface gtk-theme WhiteSur-$1-solid-green
-    gsettings set org.gnome.shell.extensions.user-theme name WhiteSur-$1-solid-green
+    gsettings set org.gnome.desktop.interface gtk-theme WhiteSur-$1-solid-green-nord
+    gsettings set org.gnome.shell.extensions.user-theme name WhiteSur-$1-solid-green-nord
     gsettings set org.gnome.desktop.background picture-uri file://${WALLPAPERS_DIR}/$1.jpg
 
     echo "Tweak the gdm theme."
     sudo bash ${COMMAND_TWEAK} \
+        -f monterey \
         -g \
         -b ${WALLPAPERS_DIR}/$1.jpg \
         -c $1 \
@@ -53,18 +58,18 @@ USAGE="
 This script is to update and change theme.
 
 Usage:
-    -c color, [dark, light] is valid
+    -c color, [Dark, Light] is valid
 "
 
 
 while getopts ":hc:" opt; do
     case ${opt} in
         c)
-            if [ ${OPTARG} == "light" ] || [ ${OPTARG} == "dark" ]; then
+            if [ ${OPTARG} == "Light" ] || [ ${OPTARG} == "Dark" ]; then
                 install_theme ${OPTARG}
                 exit 0
             else
-                echo "Invalid value of argument $opt, only [light, dark] is valid." 1>&2
+                echo "Invalid value of argument $opt, only [Light, Dark] is valid." 1>&2
                 exit 1
             fi
         ;;
